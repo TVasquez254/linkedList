@@ -1,89 +1,66 @@
-/***********************************************************
-Name: Tomas Vasquez 
-Assignment: 03
-Purpose: This program functional doubly linked list class as described in class and in your text. Create a
-linked list object from your class. This will require random data and numbers. g++ -I ./ *.cpp
-***********************************************************/
-#include<iostream>
-#include<string>
-#include <cstdlib>
 
-using namespace std;
-struct Node
-{
-    int id;
-    string data;
-    Node *back;
-    Node *forward;
-};
+#include "main.h"
 
-class Items
-{
-    private:
-    int count;
-    Node *head;
 
-    public: 
-    Items();
-    ~Items();
-    bool addNode(int, string);
-    bool deleteNode(int);
-    //bool getNode(int, DataNode*);
-    void printList(bool);
-    int getCount();
-    bool clear();
-};
+int main() {
+    srand(time(NULL));
 
-Items::Items()
-{
-    head = nullptr ;
-}
+    DataNode *data[DATA_SIZE];
 
-Items::~Items()
-{
+    fillData(data);
+    printData(data);
+    cout << endl;
+
+    bubbleSortData(data);
+
+    printData(data);
+    cout << endl;
+    cout << endl;
+
+    int num_tests = rand() % (TEST_CASE_BASE + 1) + TEST_CASE_OFFSET;
+    Items items;
     
-}
+    items.push(7, "tom"); 
+    items.push(1, "stuff");  
+    items.push(4, "run"); 
+    items.push(6, "dog");
+    items.push(8, "cat"); 
+    items.bubbleSort(); 
+    items.printList(true);
+    cout<< "the size: "<<items.findSize();
+    items.remove(4);
+    items.printList(true);
+    cout<<endl;
+    cout<< "the size: "<<items.findSize();
+    cout<<endl;
 
-bool Items::addNode(int x, string data)
-{
-    bool success = false;
-    if (head ==NULL)
-    {
-        Node *tmp = new Node;
-        tmp -> id = x;
-        tmp -> data = data;
-        tmp -> forward = NULL;
-        tmp -> back = NULL;
-        head = tmp;
-        cout<<tmp -> id<<" "<<tmp -> data<<endl;
-        //count++;
-        success = true;
+
+    cout << "Testing adding all nodes to list" << endl;
+    for (int i = 0; i < num_tests; i++) {
+        if (items.push(id[i], data[i])) {
+            cout << "\t" << i + 1 << ") " << id[i] << ": " << data[i] << " added to list." << endl;
+        } else {
+                cout << "\t error: something went wrong" << endl;
+            }
+        }
+
+/*
+    //delete the test cases from the stack
+    cout << "Testing deleting all nodes from list" << endl;
+    for (int i = 0; i < num_tests; i++) {
+        if (items.delete(&tempData)) {
+            cout << "\t" << tempData.id << ": " << tempData.data << " deleted from list." << endl;
+        } else {
+            if (items.count() == 0) {
+                cout << "\t list is empty" << endl;
+            } else {
+                cout << "\terror: something went wrong" << endl;
+            }
+        }
     }
-    else 
-    {
+    cout << "Testing deleting all test cases done" << endl << endl;
 
-
-    }
-    return success;
-
-}
-
-void Items::printList(bool)
-{
-    cout << head->id << endl;
-
-}
-
-
-int main()
-{
-    Items a;
-    a.addNode(5, "t");
-    //a.addNode(6, "t");
-    //a.printList(a.addNode(1, "t"));
-    
-
-
-
+*/
     return 0;
 }
+
