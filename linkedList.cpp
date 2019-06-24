@@ -9,6 +9,16 @@ Items::Items()
 }
 Items::~Items()
 {
+    Node *ptr = head;
+    while (ptr != NULL)
+    {
+        // Point to the node to be deleted
+        Node *garbage = ptr;
+        // Go on to the next node
+        ptr = ptr->next;
+        // Delete the current node
+        delete garbage;
+    }
 
 }
   
@@ -29,7 +39,31 @@ bool Items::push(int new_data, string data)
     return true; 
 } 
 
+/*
+bool Items::push(int number, string data)  
+{
+    Node *nodePtr, *previousNodePtr;
+    if (head == NULL || head->value >= number)
+    {
+        // A new node goes at the beginning of the list
+        head = new Node(number, head);
+    }
+    else
+    {
+        previousNodePtr = head;
+        nodePtr = head->next;
+        // Find the insertion point
+        while (nodePtr != NULL && nodePtr->value < number)
+        {
+            previousNodePtr = nodePtr;
+            nodePtr = nodePtr->next;
+        }
+        // Insert the new node just before nodePtr
+        previousNodePtr->next = new Node(number, nodePtr);
+    }
+} 
 
+*/
 
 
 int Items::findSize() 
@@ -171,5 +205,22 @@ bool Items::getNode(int id, DataNode *node)
     node->data = ""; 
     return false; 
 }
+
+
+ void Items::clear()
+ {
+     Node* currentPtr = head;
+     while (head != NULL )
+     {
+        head = head->next;
+        // Return node to the system
+        currentPtr->next= NULL;
+        delete currentPtr;
+        currentPtr = head;
+     }// end while
+    // headPtr is nullptr
+    count = 0;
+
+ }
 
  

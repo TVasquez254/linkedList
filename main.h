@@ -1,15 +1,12 @@
-/***********************************************************
-Name: Tomas Vasquez 
-Assignment: 03
-Purpose: This program collection of nodes that are Self referential node
-***********************************************************/
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <iostream>     /* cout, endl */
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>       /* time */
+#include "functions.h"
+#include "linkedList.h"
 
-using namespace std;
 
-#endif /* MAIN_H */
+//used to make test case number between 5 and 25
+#define TEST_CASE_BASE 20
+#define TEST_CASE_OFFSET 5
+
+#endif

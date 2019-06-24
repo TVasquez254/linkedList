@@ -10,9 +10,7 @@ int main() {
     fillData(data);
     printData(data);
     cout << endl;
-
     bubbleSortData(data);
-
     printData(data);
     cout << endl;
     cout << endl;
@@ -34,32 +32,69 @@ int main() {
     cout<< "the size: "<<items.findSize();
     cout<<endl;
 
+   
+    items.clear();
+    cout<<endl;
+    items.printList(true);
+    cout<< "the size: "<<items.findSize();
+    cout<<endl;
+    cout << "Making " << num_tests << " test cases..." << endl;
+    int a = 0;                   // Local variable counter declaration an intial condition for the loop    
+    while (a<num_tests)         // while loop execution and test condition
+    {
+        cout<<endl;
+        int selection = rand() % 6 + 1;
+        switch(selection) 
+        {
+            case 1 :
+            cout<<"count"<<endl;
+            break;
 
-    cout << "Testing adding all nodes to list" << endl;
-    for (int i = 0; i < num_tests; i++) {
-        if (items.push(id[i], data[i])) {
-            cout << "\t" << i + 1 << ") " << id[i] << ": " << data[i] << " added to list." << endl;
-        } else {
-                cout << "\t error: something went wrong" << endl;
-            }
+            case 2 :
+            cout<<"add"<<endl;
+            break;
+
+            case 3 :
+            cout<<"remove"<<endl;
+            break;
+
+            case 4:
+            cout<<"clear"<<endl;
+            break;
+
+            case 5:
+            cout<<"get"<<endl;
+            break;
+
+            case 6:
+            cout<<"print"<<endl;
+            break;
         }
+        
+        a++;  
+    }
+
+
+
+
+
+
 
 /*
-    //delete the test cases from the stack
-    cout << "Testing deleting all nodes from list" << endl;
+        //pushing all the test cases to the stack
+    cout << "Testing pushing all test cases to stack" << endl;
     for (int i = 0; i < num_tests; i++) {
-        if (items.delete(&tempData)) {
-            cout << "\t" << tempData.id << ": " << tempData.data << " deleted from list." << endl;
+        if (stack.push(ids[i], data[i])) {
+            cout << "\t" << i + 1 << ") " << ids[i] << ": " << data[i] << " pushed to stack." << endl;
         } else {
-            if (items.count() == 0) {
-                cout << "\t list is empty" << endl;
+            if (stack.count() == STACK_SIZE) {
+                cout << "\tstack is full" << endl;
             } else {
                 cout << "\terror: something went wrong" << endl;
             }
         }
     }
-    cout << "Testing deleting all test cases done" << endl << endl;
-
+    cout << "Testing pushing all test cases done" << endl << endl;
 */
     return 0;
 }

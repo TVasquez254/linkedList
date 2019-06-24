@@ -22,6 +22,7 @@ class Items
     void printList(bool=true);
     void remove(int);
     bool getNode(int, DataNode*);
+    void clear();
 
 };
 
