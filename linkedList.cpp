@@ -22,7 +22,7 @@ Items::~Items()
 
 }
   
-
+/*
 bool Items::push(int new_data, string data)  
 {
     struct Node* new_node = new Node;  
@@ -38,32 +38,73 @@ bool Items::push(int new_data, string data)
     count++;
     return true; 
 } 
+*/
 
-/*
 bool Items::push(int number, string data)  
 {
     Node *nodePtr, *previousNodePtr;
-    if (head == NULL || head->value >= number)
+    Node *newNode = new Node;
+    newNode->data = data;
+    newNode->id = number;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    cout << "pushing " << number << " " << data << endl;
+    if (head == NULL)
     {
         // A new node goes at the beginning of the list
-        head = new Node(number, head);
+        head = newNode;
+        //cout << "added empty" << endl;
     }
     else
     {
-        previousNodePtr = head;
-        nodePtr = head->next;
-        // Find the insertion point
-        while (nodePtr != NULL && nodePtr->value < number)
+        if(head->id > number)
         {
-            previousNodePtr = nodePtr;
-            nodePtr = nodePtr->next;
+            newNode->next = head;
+            head = newNode;
+            //cout << "added at start" << endl;
         }
-        // Insert the new node just before nodePtr
-        previousNodePtr->next = new Node(number, nodePtr);
+        else if (head->id < number)
+        {
+            previousNodePtr = head;
+            nodePtr = head->next;
+            // Find the insertion point
+            bool found = false;
+            while (nodePtr != NULL && !found)
+            {
+                if(nodePtr->id < number)
+                {
+                previousNodePtr = nodePtr;
+                nodePtr = nodePtr->next;
+                }
+                else if (nodePtr->id > number)
+                     found = true;
+                else
+                    return false;
+            }
+            if(previousNodePtr->next != NULL)
+            {
+                // Insert the new node just before nodePtr
+                previousNodePtr->next = newNode;
+                newNode->next = nodePtr;
+                newNode->prev = previousNodePtr;
+                nodePtr->prev = newNode;
+                //cout << "added at mid" << endl;
+            }
+            else
+            {
+                previousNodePtr->next = newNode;
+                newNode->prev = previousNodePtr;
+                //cout << "added at end" << endl;
+            }
+        }
+        else
+            return false;
     }
+    count++;
+    return true; 
 } 
 
-*/
+
 
 
 int Items::findSize() 
@@ -71,35 +112,7 @@ int Items::findSize()
    return count; 
 } 
 
-/* Bubble sort the given linked list */
-void Items::bubbleSort() 
-{ 
-    int swapped, i; 
-    struct Node *ptr1; 
-    struct Node *lptr = NULL; 
-   
-    /* Checking for empty list */
-    if (head == NULL) 
-        return; 
-   
-    do
-    { 
-        swapped = 0; 
-        ptr1 = head; 
-   
-        while (ptr1->next != lptr) 
-        { 
-            if (ptr1->id > ptr1->next->id) 
-            {  
-                swap(ptr1->id, ptr1->next->id); 
-                swapped = 1; 
-            } 
-            ptr1 = ptr1->next; 
-        } 
-        lptr = ptr1; 
-    } 
-    while (swapped); 
-} 
+
 
 void Items::printList(bool x) 
 { 
@@ -120,7 +133,7 @@ void Items::printList(bool x)
     cout << endl; 
     while (node!=NULL) 
     { 
-        cout << node->id << " "<<node->data<<endl; 
+        cout << node->id << " " << node->data << endl; 
         if (x) 
         {
             node = node->next;
@@ -135,11 +148,19 @@ void Items::printList(bool x)
 } 
 
 
-void Items::remove(int number)
+bool Items::remove(int number)
 {
+    bool success = false;
     Node *nodePtr, *previousNodePtr;
     // If the list is empty, do nothing
-    if (!head) return;
+    if (!head)
+    {
+        cout<<"cant delete from empty list"<<endl;
+        return success;
+
+    } 
+
+    
     // Determine if the first node is the one to delete
     if (head->id == number)
     {
@@ -148,16 +169,23 @@ void Items::remove(int number)
         head->prev= NULL;
         delete nodePtr;
         count--;
+        success= true;
     }
     else
     {
         // Initialize nodePtr to the head of the list
         nodePtr = head;
         // Skip nodes whose value member is not number
-        while (nodePtr != NULL && nodePtr->id != number)
+        bool match = false;
+        while (nodePtr != NULL && !match)
         {
-            previousNodePtr = nodePtr;
-            nodePtr = nodePtr->next;
+            if(nodePtr->id != number)
+            {
+                previousNodePtr = nodePtr;
+                nodePtr = nodePtr->next;
+            }
+            else
+                match = true;
         }
         // Link the previous node to the node after
         // nodePtr, then delete nodePtr
@@ -169,12 +197,15 @@ void Items::remove(int number)
             }
             count--;
             delete nodePtr;
+            success= true;
         }
         if (!nodePtr)
         {
             cout<< number<<" is not in the list"<<endl;
+            success= false;
         }
     }
+    return success;
 }
 
 
@@ -207,20 +238,48 @@ bool Items::getNode(int id, DataNode *node)
 }
 
 
- void Items::clear()
+ bool Items::clear()
  {
      Node* currentPtr = head;
      while (head != NULL )
      {
+
         head = head->next;
         // Return node to the system
         currentPtr->next= NULL;
         delete currentPtr;
         currentPtr = head;
      }// end while
-    // headPtr is nullptr
     count = 0;
+    return true;
 
  }
 
- 
+
+/*
+void Items::deleteLast()  
+{  
+    if (head == NULL) 
+        return NULL; 
+  
+    if (head->next == NULL) { 
+        delete head; 
+        return NULL; 
+    } 
+  
+    // Find the second last node 
+    Node* second_last = head; 
+    while (second_last->next->next != NULL) 
+        second_last = second_last->next; 
+  
+    // Delete last node 
+    delete (second_last->next); 
+  
+    // Change next of second last 
+    second_last->next = NULL; 
+  
+    return head; 
+	
+	//return data;	
+}  
+*/

@@ -18,11 +18,11 @@ class Items
     ~Items();
     bool push(int, string);
     int findSize();
-    void bubbleSort();
     void printList(bool=true);
-    void remove(int);
+    bool remove(int);
     bool getNode(int, DataNode*);
-    void clear();
+    bool clear();
+    void deleteLast();
 
 };
 
