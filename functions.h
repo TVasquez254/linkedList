@@ -15,6 +15,8 @@ string random_string(int);
 void printData(DataNode *d[]);
 void bubbleSortData(DataNode**);
 void swapData(int*, int*);
+void deleteNodeAtGivenPos(int);
+void deleteNode(struct Node* del); 
 
 #endif
 

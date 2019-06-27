@@ -211,29 +211,31 @@ bool Items::remove(int number)
 
 bool Items::getNode(int id, DataNode *node)
 {
-    if(head ==NULL)
-    {
-        node->id=-1;
-        node->data = ""; 
-        return false; 
-    }
-
-
-    Node* current = head;
-    while (current!=NULL) 
-    { 
-        if (id ==node->id) 
-        {
-            node->id = current->id;
-            node->data = current->data;
-            return true;
-        }
-
-        current = current->next;
-    }
-
+    //node = new DataNode;
     node->id=-1;
-    node->data = ""; 
+    node->data = "";
+    node->next = NULL;
+    node->prev = NULL;
+    cout << "search for node id: " << id << endl;
+    if(head != NULL)
+    {
+        Node* current = head;
+        while (current!=NULL) 
+        { 
+            if (id == current->id) 
+            {
+                cout << "found" << endl;
+                node->id = current->id;
+                node->data = current->data;
+                //cout << node->id << endl;
+                cout << "assign current to node" << endl;
+                return true;
+            }
+
+            current = current->next;
+        }
+    }
+    cout << "not found \n";
     return false; 
 }
 
@@ -256,30 +258,5 @@ bool Items::getNode(int id, DataNode *node)
  }
 
 
-/*
-void Items::deleteLast()  
-{  
-    if (head == NULL) 
-        return NULL; 
-  
-    if (head->next == NULL) { 
-        delete head; 
-        return NULL; 
-    } 
-  
-    // Find the second last node 
-    Node* second_last = head; 
-    while (second_last->next->next != NULL) 
-        second_last = second_last->next; 
-  
-    // Delete last node 
-    delete (second_last->next); 
-  
-    // Change next of second last 
-    second_last->next = NULL; 
-  
-    return head; 
-	
-	//return data;	
-}  
-*/
+
+

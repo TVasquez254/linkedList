@@ -14,14 +14,44 @@ int main() {
     Items items;
     
     bool x;
+    items.clear();
 
- /*
+ 
     items.push(7, "tom"); 
     items.push(1, "stuff"); 
     items.push(4, "run"); 
     items.push(6, "dog");
     items.push(8, "cat"); 
-    //items.bubbleSort(); 
+    /*
+  
+
+    DataNode *singleNode = new DataNode;
+
+    if(items.getNode(6, singleNode))
+    {
+        cout << "main found" << endl;
+    }
+    else
+    {
+        cout << "node not found" << endl;
+    }
+     cout << "ID: " << singleNode->id << endl;
+    cout << "Data: " << singleNode->data << endl;
+    if(items.getNode(19, singleNode))
+    {
+        cout << "main found" << endl;
+    }
+    else
+    {
+        cout << "node not found" << endl;
+    }
+    cout << "ID: " << singleNode->id << endl;
+    cout << "Data: " << singleNode->data << endl;
+
+
+
+*/
+
     items.printList(true);
     items.printList(false);
     cout<< "the size: "<<items.findSize();
@@ -37,9 +67,10 @@ int main() {
     items.printList(true);
     cout<< "the size: "<<items.findSize();
     cout<<endl;
-    x=items.remove(2);
-    cout<<"Bool of remove: "<<x<<endl;
+    //x=items.remove(2);
+    //cout<<"Bool of remove: "<<x<<endl;
 
+/*
     DataNode *d[num_tests];
     DataNode *e[num_tests];
     
@@ -76,7 +107,9 @@ int main() {
 
         cout<<endl;
         cout<<endl;
-*/
+
+
+
     //Testing for project
     cout << "Making " << num_tests << " test cases..." << endl;
 
@@ -203,7 +236,7 @@ int main() {
         
         a++;  
     }
-
+*/
     return 0;
 }
 
