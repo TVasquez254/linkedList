@@ -1,3 +1,10 @@
+/***********************************************************
+Name: Tomas Vasquez 
+Assignment: 03
+Purpose: This program adds/deletes to head, end, and middle data structure. Additionally, it puts every number in order. It prints out forward/backwards with parameters and forward without it.
+It also retrieves any node. It will not insert duplicates or print out empty lists. First set are in order while the second half are randomly generated.
+Notes:  I broke this down into several functions to take away multiple if statements. 
+***********************************************************/
 #include "functions.h"
 
 void swapData(DataNode *id1, DataNode *id2) 

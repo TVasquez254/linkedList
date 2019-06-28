@@ -1,3 +1,10 @@
+/***********************************************************
+Name: Tomas Vasquez 
+Assignment: 03
+Purpose: This program adds/deletes to head, end, and middle data structure. Additionally, it puts every number in order. It prints out forward/backwards with parameters and forward without it.
+It also retrieves any node. It will not insert duplicates or print out empty lists. First set are in order while the second half are randomly generated.
+Notes:  I broke this down into several functions to take away multiple if statements. 
+***********************************************************/
 #include "linkedList.h"
 
 using namespace std;
@@ -18,7 +25,7 @@ Items::~Items()
 
 
 // Add Function
-bool Items::push(int number, string data)  
+bool Items::addNode(int number, string data)  
 {
     bool x;
     x= search(number);
@@ -34,8 +41,8 @@ bool Items::push(int number, string data)
     Node *newNode = new Node;
     newNode->data = data;
     newNode->id = number;
-    newNode->next = NULL;
-    newNode->prev = NULL;
+    newNode->forward = NULL;
+    newNode->back = NULL;
     cout << "Adding: " << number << " " << data << endl;
     
     if (head == NULL)
@@ -49,14 +56,14 @@ bool Items::push(int number, string data)
         
         if(head->id > number)
         {
-            newNode->next = head;
+            newNode->forward = head;
             head = newNode;
             //cout << "added at start" << endl;
         }
         else if (head->id < number)
         {
             previousNodePtr = head;
-            nodePtr = head->next;
+            nodePtr = head->forward;
             // Find the insertion point
             bool found = false;
             while (nodePtr != NULL && !found)
@@ -64,26 +71,26 @@ bool Items::push(int number, string data)
                 if(nodePtr->id < number)
                 {
                 previousNodePtr = nodePtr;
-                nodePtr = nodePtr->next;
+                nodePtr = nodePtr->forward;
                 }
                 else if (nodePtr->id > number)
                      found = true;
                 else
                     return false;
             }
-            if(previousNodePtr->next != NULL)
+            if(previousNodePtr->forward != NULL)
             {
                 // Insert the new node just before nodePtr
-                previousNodePtr->next = newNode;
-                newNode->next = nodePtr;
-                newNode->prev = previousNodePtr;
-                nodePtr->prev = newNode;
+                previousNodePtr->forward = newNode;
+                newNode->forward = nodePtr;
+                newNode->back = previousNodePtr;
+                nodePtr->back = newNode;
                 //cout << "added at mid" << endl;
             }
             else
             {
-                previousNodePtr->next = newNode;
-                newNode->prev = previousNodePtr;
+                previousNodePtr->forward = newNode;
+                newNode->back = previousNodePtr;
                 //cout << "added at end" << endl;
             }
         }
@@ -97,7 +104,7 @@ bool Items::push(int number, string data)
 
 
 // Counter Function
-int Items::findSize() 
+int Items::getCount() 
 { 
    return count; 
 } 
@@ -117,9 +124,9 @@ void Items::printList(bool x)
     Node* node = head;
     if (!x)
     {
-        while (node->next!= NULL)  
+        while (node->forward!= NULL)  
         {    
-            node = node->next;  
+            node = node->forward;  
         }
     } 
     cout << endl; 
@@ -128,11 +135,11 @@ void Items::printList(bool x)
         cout << node->id << " " << node->data << endl; 
         if (x) 
         {
-            node = node->next;
+            node = node->forward;
         }
         else 
         {
-            node = node->prev;
+            node = node->back;
         }
     } 
    
@@ -141,7 +148,7 @@ void Items::printList(bool x)
 
 
 // Deleting Function
-bool Items::remove(int number)
+bool Items::deleteNode(int number)
 {
     bool success = false;
     Node *nodePtr, *previousNodePtr;
@@ -158,8 +165,8 @@ bool Items::remove(int number)
     if (head->id == number)
     {
         nodePtr = head;
-        head = head->next;
-        head->prev= NULL;
+        head = head->forward;
+        head->back= NULL;
         delete nodePtr;
         count--;
         success= true;
@@ -175,7 +182,7 @@ bool Items::remove(int number)
             if(nodePtr->id != number)
             {
                 previousNodePtr = nodePtr;
-                nodePtr = nodePtr->next;
+                nodePtr = nodePtr->forward;
             }
             else
                 match = true;
@@ -184,9 +191,9 @@ bool Items::remove(int number)
         // nodePtr, then delete nodePtr
         if (nodePtr)
         {
-            previousNodePtr->next = nodePtr->next;
-            if(nodePtr->next){
-                nodePtr->next->prev=previousNodePtr;
+            previousNodePtr->forward = nodePtr->forward;
+            if(nodePtr->forward){
+                nodePtr->forward->back=previousNodePtr;
             }
             count--;
             delete nodePtr;
@@ -207,8 +214,8 @@ bool Items::getNode(int id, DataNode *node)
 {
     node->id=-1;
     node->data = "";
-    node->next = NULL;
-    node->prev = NULL;
+    node->forward = NULL;
+    node->back = NULL;
     cout << "Searching for node id: " << id << endl;
     if(head != NULL)
     {
@@ -225,7 +232,7 @@ bool Items::getNode(int id, DataNode *node)
                 return true;
             }
 
-            current = current->next;
+            current = current->forward;
         }
     }
     //cout << "Not found \n";
@@ -239,12 +246,12 @@ bool Items::getNode(int id, DataNode *node)
      Node* currentPtr = head;
      while (head != NULL )
      {
-         Node* curr = head->next;
+         Node* curr = head->forward;
         while (curr != NULL && curr != head)
         {
             std::cout << "Deleting: " << curr->id << std::endl;
             Node* temp = curr;
-            curr = curr->next;
+            curr = curr->forward;
             delete temp;
         };
         delete head;
@@ -266,7 +273,7 @@ bool Items::search(int x)
     {  
         if (current->id == x)  
             return true;  
-        current = current->next;  
+        current = current->forward;  
     }  
     return false;  
 }  
