@@ -5,8 +5,7 @@
 #include "linkedList.h"
 
 
-//used to make test case number between 5 and 25
-#define TEST_CASE_BASE 20
-#define TEST_CASE_OFFSET 5
+//used to make test case number between 0 and 18
+#define TEST_CASE_BASE 17
 
 #endif

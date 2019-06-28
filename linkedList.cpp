@@ -1,47 +1,35 @@
 #include "linkedList.h"
 
 using namespace std;
+
+//Constructor 
 Items::Items()
 {
     head = NULL;
     count =0;
 
 }
+
+//Destructor
 Items::~Items()
 {
-    Node *ptr = head;
-    while (ptr != NULL)
-    {
-        // Point to the node to be deleted
-        Node *garbage = ptr;
-        // Go on to the next node
-        ptr = ptr->next;
-        // Delete the current node
-        delete garbage;
-    }
-
+    clear();
 }
-  
-/*
-bool Items::push(int new_data, string data)  
-{
-    struct Node* new_node = new Node;  
-    new_node->id = new_data; 
-    new_node->data = data;
-    new_node->next = head;  
-    new_node->prev = NULL;  
-  
-    if (head != NULL)  
-        head->prev = new_node;  
-  
-    head = new_node; 
-    count++;
-    return true; 
-} 
-*/
 
+
+// Add Function
 bool Items::push(int number, string data)  
 {
+    bool x;
+    x= search(number);
+    //cout<<"bool value: "<<x<<endl;
+    if (x)
+    {
+        cout<<number<<" already exists"<<endl;
+        return true;
+    }
+   
+
     Node *nodePtr, *previousNodePtr;
     Node *newNode = new Node;
     newNode->data = data;
@@ -49,6 +37,7 @@ bool Items::push(int number, string data)
     newNode->next = NULL;
     newNode->prev = NULL;
     cout << "Adding: " << number << " " << data << endl;
+    
     if (head == NULL)
     {
         // A new node goes at the beginning of the list
@@ -57,6 +46,7 @@ bool Items::push(int number, string data)
     }
     else
     {
+        
         if(head->id > number)
         {
             newNode->next = head;
@@ -106,14 +96,14 @@ bool Items::push(int number, string data)
 
 
 
-
+// Counter Function
 int Items::findSize() 
 { 
    return count; 
 } 
 
 
-
+// Printing Function
 void Items::printList(bool x) 
 { 
     if(head ==NULL)
@@ -150,6 +140,7 @@ void Items::printList(bool x)
 } 
 
 
+// Deleting Function
 bool Items::remove(int number)
 {
     bool success = false;
@@ -211,9 +202,9 @@ bool Items::remove(int number)
 }
 
 
+// getNode Function
 bool Items::getNode(int id, DataNode *node)
 {
-    //node = new DataNode;
     node->id=-1;
     node->data = "";
     node->next = NULL;
@@ -226,22 +217,23 @@ bool Items::getNode(int id, DataNode *node)
         { 
             if (id == current->id) 
             {
-                cout << "Found" << endl;
+                //cout << "Found" << endl;
                 node->id = current->id;
                 node->data = current->data;
                 //cout << node->id << endl;
-                cout << "assign current to node" << endl;
+                //cout << "assign current to node" << endl;
                 return true;
             }
 
             current = current->next;
         }
     }
-    cout << "Not found \n";
+    //cout << "Not found \n";
     return false; 
 }
 
 
+// Clear Function
  bool Items::clear()
  {
      Node* currentPtr = head;
@@ -266,6 +258,15 @@ bool Items::getNode(int id, DataNode *node)
 
  }
 
-
-
-
+// Search Function to locate duplicate node
+bool Items::search(int x)  
+{  
+    Node* current = head; // Initialize current  
+    while (current != NULL)  
+    {  
+        if (current->id == x)  
+            return true;  
+        current = current->next;  
+    }  
+    return false;  
+}  

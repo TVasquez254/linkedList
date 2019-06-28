@@ -22,7 +22,7 @@ class Items
     bool remove(int);
     bool getNode(int, DataNode*);
     bool clear();
-    //void deleteLast();
+    bool search(int);
 
 };
 

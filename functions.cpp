@@ -24,7 +24,7 @@ void bubbleSortData(DataNode *d[])
 void fillData(DataNode *d[]) {
     for (int i = 0; i < DATA_SIZE; i++) {
         d[i] = new DataNode;
-        d[i]->id = range_random(100, 999);
+        d[i]->id = range_random(1000, 9999);
         d[i]->data = random_string(BUFFER_SIZE);
     }
 }

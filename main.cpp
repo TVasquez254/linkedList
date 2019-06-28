@@ -8,149 +8,171 @@ int main() {
     //      Main Data test                              *
     //***************************************************
     srand(time(NULL));
-    //DataNode *data[DATA_SIZE];
-    int num_tests = rand() % (TEST_CASE_BASE + 1) + TEST_CASE_OFFSET;
+    int num_tests = rand() % (TEST_CASE_BASE + 1);
+    int RANDOM = rand() % (num_tests);
+    int SIZE1=0;                          //counter control variable
     Items items;
+    DataNode *d[DATA_SIZE];
+    
+
+    fillData(d);
+    bubbleSortData(d);
+    printData(d);
+    cout << endl;
+
     items.clear();
-
-    items.remove(7);        // Cant delete from head 
-    items.push(7, "tom");   //Adding to head
-    items.push(1, "stuff");     //Adding to head 
-    items.push(4, "run");       //Adding to middle 
-    items.push(6, "dog");
-    items.push(8, "cat");   //Adding to tail
-
-
+    items.remove(d[num_tests]->id);                     // Cant delete from head 
+    items.push(d[num_tests]->id, d[num_tests]->data);   //Adding to head
     items.printList(true);  //Printing list 
-    items.remove(7); 
-    items.printList();  //Printing list after deletion
+    cout<<"Deleting a number not on list"<<endl;
+    items.remove(d[RANDOM]->id); 
     cout<<endl;
-    items.printList(true);  //Printing list 
+
+    //***************************************************
+    //  Testing adding multiple var at diff points      *
+    //***************************************************
+                                            
+     while (SIZE1<5)
+     {
+         int second_tests = rand() % (num_tests);    // Randomizing the linked list
+         items.push(d[second_tests]->id, d[second_tests]->data);
+         SIZE1++;
+     }
+
+ 
+    items.printList(true);  //Printing forward list 
     cout<<endl;
-    items.printList(false);  //Printing list 
+    items.printList(false);  //Printing backwards list 
     cout<<endl;
     cout<<"The size of linked list: "<<items.findSize()<<endl;
     items.clear();
     items.printList();  //Printing list after deletion
     cout<<"The size of linked list: "<<items.findSize()<<endl;
 
-    items.push(7, "tom");
+    items.push(d[num_tests]->id, d[num_tests]->data);
     cout<<"The size of linked list: "<<items.findSize()<<endl;
     items.clear(); 
-    items.push(7, "tom");
-    items.push(9, "animal");
-    items.push(5, "pak");
+    items.push(d[num_tests]->id, d[num_tests]->data);
+    items.push(d[num_tests]->id, d[num_tests]->data);
+    items.push(d[num_tests]->id, d[num_tests]->data);
     cout<<"The size of linked list: "<<items.findSize()<<endl;
     items.clear(); 
+    cout<<endl;
 
 
-    items.push(6, "animal");
+    //***************************************************
+    //      GetNode Data test                           *
+    //***************************************************
+    items.push(d[num_tests]->id, d[num_tests]->data);
     DataNode *singleNode = new DataNode;
 
-    if(items.getNode(6, singleNode))
+    if(items.getNode(d[num_tests]->id, singleNode))
     {
-        cout << "main found" << endl;
+        cout << "Node Found" << endl;
     }
     else
     {
-        cout << "node not found" << endl;
+        cout << "Node not found" << endl;
     }
-     cout << "ID: " << singleNode->id << endl;
+    cout << "ID: " << singleNode->id << endl;
     cout << "Data: " << singleNode->data << endl;
+    cout<<endl;
     if(items.getNode(19, singleNode))
     {
-        cout << "main found" << endl;
+        cout << "Node found" << endl;
     }
     else
     {
-        cout << "node not found" << endl;
+        cout << "Node not found" << endl;
     }
     cout << "ID: " << singleNode->id << endl;
     cout << "Data: " << singleNode->data << endl;
 
-/* 
+
     cout<<endl;
     cout<<endl;
 
-    //Testing for project
+    //***************************************************
+    //      Testing for project                         *
+    //***************************************************
     cout << "Making " << num_tests << " test cases..." << endl;
-
-    DataNode *d[num_tests];
-    
-    for (int i = 0; i < num_tests; i++) 
-    {
-        d[i] = new DataNode;
-        d[i]->id = range_random(1000, 9999);
-        d[i]->data = random_string(BUFFER_SIZE);
-    }
-    
-
-
-    for (int i = 0; i < num_tests; i++) 
-    {
-        cout << d[i]->id << ": ";
-        cout << d[i]->data << endl;
-    }
-
-    cout<<endl;
+    cout<< "Position: "<<num_tests<<endl;
     cout<<endl;
 
 
+    cout<<d[num_tests]->id<<" : "<<d[num_tests]->data<<endl;
+    items.push(d[num_tests]->id, d[num_tests]->data);
+    cout<<"The size of linked list: "<<items.findSize()<<endl;
+    items.printList();
+    items.clear(); 
+    items.printList();
+    cout<<"The size of linked list: "<<items.findSize()<<endl;
+    cout<<endl;
 
-    int a = 0;                   // Local variable counter declaration an intial condition for the loop    
+
+    //***************************************************
+    //      Testing under random conditions             *
+    //***************************************************
+
+ 
+    int a = 1;                   // Local variable counter declaration an intial condition for the loop    
     while (a<num_tests)         // while loop execution and test condition
     {
-        bool x,y;
         cout<<endl;
-        int selection = rand() % 12+1;
-        int second_tests = rand() % (num_tests);
-        cout<<"NumsS "<<second_tests<<endl;
+        int selection = rand() % 7+1;
+        int third_tests = rand() % (num_tests);    // Randomizing the linked list 
+
         switch(selection) 
         {
             case 1 :
-            cout<<"count"<<endl;
-            cout<< "The size: "<<items.findSize();
+            cout<<"Count"<<endl;
+            cout<<"The size of linked list: "<<items.findSize()<<endl;
             break;
 
             case 2 :
-            cout<<"Add head"<<endl;
+            cout<<"Add element"<<endl;
+            items.push(d[num_tests]->id, d[third_tests]->data);
             break;
 
             case 3 :
-            cout<<"Remove"<<endl;
+            cout<<"Remove element"<<endl;
+            items.remove(d[third_tests]->id);
             break;
 
             case 4:
-            cout<<"Clear"<<endl;
+            cout<<"Clear list"<<endl;
             items.clear();
             break;
 
             case 5:
-            cout<<"Get"<<endl;
+            cout<<"GetNode"<<endl;
+            if(items.getNode(d[third_tests]->id, singleNode))
+                {
+                    cout << "Node Found" << endl;
+                }
+            else
+                {
+                    cout << "node not found" << endl;
+                }
+                cout << "ID: " << singleNode->id << endl;
+                cout << "Data: " << singleNode->data << endl;
             break;
 
             case 6:
-            cout<<"Print"<<endl;
+            cout<<"Print List Forward"<<endl;
             items.printList();
             break;
 
             case 7:
-            cout<<"Print"<<endl;
-            items.printList(x);
+            cout<<"Print List Reversed"<<endl;
+            items.printList(false);
             break;
 
-            case 8:
-            cout<<"Add"<<endl;
-            break;
-
-            case 9:
-            cout<<"Remove"<<endl;
-            break;
         }
-        
+        cout<<endl;
         a++;  
-    }
-*/
+    } //end Switch statement 
+
     return 0;
 }
 
