@@ -48,7 +48,7 @@ bool Items::push(int number, string data)
     newNode->id = number;
     newNode->next = NULL;
     newNode->prev = NULL;
-    cout << "pushing " << number << " " << data << endl;
+    cout << "Adding: " << number << " " << data << endl;
     if (head == NULL)
     {
         // A new node goes at the beginning of the list
@@ -118,6 +118,8 @@ void Items::printList(bool x)
 { 
     if(head ==NULL)
     {
+        cout<<"List is empty"<<endl;
+        cout<<endl;
         return; 
     }
 
@@ -155,7 +157,7 @@ bool Items::remove(int number)
     // If the list is empty, do nothing
     if (!head)
     {
-        cout<<"cant delete from empty list"<<endl;
+        cout<<"Cant delete from empty list!"<<endl;
         return success;
 
     } 
@@ -216,7 +218,7 @@ bool Items::getNode(int id, DataNode *node)
     node->data = "";
     node->next = NULL;
     node->prev = NULL;
-    cout << "search for node id: " << id << endl;
+    cout << "Searching for node id: " << id << endl;
     if(head != NULL)
     {
         Node* current = head;
@@ -224,7 +226,7 @@ bool Items::getNode(int id, DataNode *node)
         { 
             if (id == current->id) 
             {
-                cout << "found" << endl;
+                cout << "Found" << endl;
                 node->id = current->id;
                 node->data = current->data;
                 //cout << node->id << endl;
@@ -235,7 +237,7 @@ bool Items::getNode(int id, DataNode *node)
             current = current->next;
         }
     }
-    cout << "not found \n";
+    cout << "Not found \n";
     return false; 
 }
 
@@ -245,12 +247,19 @@ bool Items::getNode(int id, DataNode *node)
      Node* currentPtr = head;
      while (head != NULL )
      {
+         Node* curr = head->next;
+        while (curr != NULL && curr != head)
+        {
+            std::cout << "Deleting: " << curr->id << std::endl;
+            Node* temp = curr;
+            curr = curr->next;
+            delete temp;
+        };
+        delete head;
+        head = NULL;
+        count =0;
 
-        head = head->next;
-        // Return node to the system
-        currentPtr->next= NULL;
-        delete currentPtr;
-        currentPtr = head;
+       
      }// end while
     count = 0;
     return true;

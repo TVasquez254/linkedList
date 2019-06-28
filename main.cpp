@@ -3,28 +3,48 @@
 
 
 int main() {
+
+    //***************************************************
+    //      Main Data test                              *
+    //***************************************************
     srand(time(NULL));
-
-    DataNode *data[DATA_SIZE];
-
+    //DataNode *data[DATA_SIZE];
     int num_tests = rand() % (TEST_CASE_BASE + 1) + TEST_CASE_OFFSET;
-
-
-    
     Items items;
-    
-    bool x;
     items.clear();
 
- 
-    items.push(7, "tom"); 
-    items.push(1, "stuff"); 
-    items.push(4, "run"); 
+    items.remove(7);        // Cant delete from head 
+    items.push(7, "tom");   //Adding to head
+    items.push(1, "stuff");     //Adding to head 
+    items.push(4, "run");       //Adding to middle 
     items.push(6, "dog");
-    items.push(8, "cat"); 
-    /*
-  
+    items.push(8, "cat");   //Adding to tail
 
+
+    items.printList(true);  //Printing list 
+    items.remove(7); 
+    items.printList();  //Printing list after deletion
+    cout<<endl;
+    items.printList(true);  //Printing list 
+    cout<<endl;
+    items.printList(false);  //Printing list 
+    cout<<endl;
+    cout<<"The size of linked list: "<<items.findSize()<<endl;
+    items.clear();
+    items.printList();  //Printing list after deletion
+    cout<<"The size of linked list: "<<items.findSize()<<endl;
+
+    items.push(7, "tom");
+    cout<<"The size of linked list: "<<items.findSize()<<endl;
+    items.clear(); 
+    items.push(7, "tom");
+    items.push(9, "animal");
+    items.push(5, "pak");
+    cout<<"The size of linked list: "<<items.findSize()<<endl;
+    items.clear(); 
+
+
+    items.push(6, "animal");
     DataNode *singleNode = new DataNode;
 
     if(items.getNode(6, singleNode))
@@ -48,73 +68,14 @@ int main() {
     cout << "ID: " << singleNode->id << endl;
     cout << "Data: " << singleNode->data << endl;
 
-
-
-*/
-
-    items.printList(true);
-    items.printList(false);
-    cout<< "the size: "<<items.findSize();
-    cout<<endl;
-    cout<<"Bool of remove: "<<items.remove(4);
-    cout<<endl;
-    items.printList(true);
-    cout<<endl;
-    cout<< "the size: "<<items.findSize();
-    cout<<endl;
-    cout<<"Bool of clear: "<<items.clear();
-    cout<<endl;
-    items.printList(true);
-    cout<< "the size: "<<items.findSize();
-    cout<<endl;
-    //x=items.remove(2);
-    //cout<<"Bool of remove: "<<x<<endl;
-
-/*
-    DataNode *d[num_tests];
-    DataNode *e[num_tests];
-    
-    for (int i = 0; i < num_tests; i++) 
-    {
-        d[i] = new DataNode;
-        d[i]->id = range_random(1000, 9999);
-        d[i]->data = random_string(BUFFER_SIZE);
-    }
-    
-
-    for (int i = 0; i < num_tests; i++) 
-    {
-        e[i] = new DataNode;
-        e[i]->id = range_random(1000, 9999);
-        e[i]->data = random_string(BUFFER_SIZE);
-    }
-
-
-    for (int i = 0; i < num_tests; i++) 
-    {
-        cout << d[i]->id << ": ";
-        cout << d[i]->data << endl;
-    }
-
+/* 
     cout<<endl;
     cout<<endl;
-
-    for (int i = 0; i < num_tests; i++) 
-    {
-        cout << e[i]->id << ": ";
-        cout << e[i]->data << endl;
-    }
-
-        cout<<endl;
-        cout<<endl;
-
-
 
     //Testing for project
     cout << "Making " << num_tests << " test cases..." << endl;
 
     DataNode *d[num_tests];
-    DataNode *e[num_tests];
     
     for (int i = 0; i < num_tests; i++) 
     {
@@ -123,13 +84,6 @@ int main() {
         d[i]->data = random_string(BUFFER_SIZE);
     }
     
-
-    for (int i = 0; i < num_tests; i++) 
-    {
-        e[i] = new DataNode;
-        e[i]->id = range_random(1000, 9999);
-        e[i]->data = random_string(BUFFER_SIZE);
-    }
 
 
     for (int i = 0; i < num_tests; i++) 
@@ -140,15 +94,6 @@ int main() {
 
     cout<<endl;
     cout<<endl;
-
-    for (int i = 0; i < num_tests; i++) 
-    {
-        cout << e[i]->id << ": ";
-        cout << e[i]->data << endl;
-    }
-
-        cout<<endl;
-        cout<<endl;
 
 
 
@@ -169,27 +114,10 @@ int main() {
 
             case 2 :
             cout<<"Add head"<<endl;
-                for (int i = 0; i < num_tests; i++) 
-                {
-                    if (d[i]->id==e[second_tests]->id)
-                    {
-                        x= items.push(e[second_tests]->id, e[second_tests]->data);
-                        cout << "Item: "<<e[second_tests]->id << ": "<< e[second_tests]->data << " was added."<<endl;
-                    }
-                }
             break;
 
             case 3 :
             cout<<"Remove"<<endl;
-            
-            for (int i = 0; i < num_tests; i++) 
-                {
-                    if (d[i]->id==e[second_tests]->id)
-                    {
-                        y= items.remove(e[second_tests]->id);
-                        cout << "Item: "<<e[second_tests]->id << ": "<< e[second_tests]->data << " was deleted."<<endl;
-                    }
-                }
             break;
 
             case 4:
@@ -207,30 +135,16 @@ int main() {
             break;
 
             case 7:
-            cout<<"Delete Tail"<<endl;
-            break;
-
-            case 8:
-            cout<<"Delete Head"<<endl;
-            break;
-
-            case 9:
-            cout<<"Delete Middle"<<endl;
-            break;
-
-            case 10:
             cout<<"Print"<<endl;
             items.printList(x);
             break;
 
-            case 11:
+            case 8:
             cout<<"Add"<<endl;
-            items.push(e[second_tests]->id, e[second_tests]->data);
             break;
 
-            case 12:
+            case 9:
             cout<<"Remove"<<endl;
-            items.remove(e[second_tests]->id);
             break;
         }
         
